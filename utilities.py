@@ -1,6 +1,4 @@
-"""
-Implements utility functions and classes.
-"""
+"""Implements utility functions and classes."""
 
 from __future__ import annotations
 
@@ -10,7 +8,7 @@ import pandas as pd
 
 
 def subplots(n_rows: int, n_cols: int, **kwargs) -> tuple[Figure, Axes]:
-    """Creates a rectangular plot with n_rows and n_columns of subplots. Unlike plt.subplots, each subplot has the current figsize.
+    """Creates a rectangular plot with n_rows and n_columns of subplots. Like plt.subplots, but each subplot has the current figsize.
 
     Parameters
     ----------
@@ -19,12 +17,7 @@ def subplots(n_rows: int, n_cols: int, **kwargs) -> tuple[Figure, Axes]:
     n_rows: int
         The number of rows for the plot.
     kwargs: optional
-        Keyword arguments passed to plt.subplot.
-
-    Returns
-    -------
-        Just as plt.subplots.
-    """
+        Keyword arguments passed to plt.subplot."""
     return plt.subplots(nrows=n_rows, ncols=n_cols, constrained_layout=True, **kwargs,
                         figsize=np.array((n_rows, n_cols)) * plt.rcParams["figure.figsize"])
 
@@ -37,8 +30,7 @@ class PiecewiseConstantInterpolator:
     intervals: np.ndarray of size 2xN
         A 2D array of intervals (length 2 arrays) in which the function is constant.
     value_per_interval: np.ndarray of size N
-        A 1D array of the constant value per each interval.
-    """
+        A 1D array of the constant value per each interval."""
     def __init__(self, series: pd.Series):
         normalized_series = (series - series.min())/(series.max() - series.min())
         left_times = normalized_series[~np.isclose(normalized_series.diff(), 0.)].index
@@ -57,8 +49,7 @@ class PiecewiseConstantInterpolator:
         Returns
         -------
         values: np.ndarray
-            Array of the same size as times, which the evaluation of the spline at each time.
-        """
+            Array of the same size as times, which the evaluation of the spline at each time."""
         indexes = np.searchsorted(self._right_times, times, side='right')
         values = self.value_per_interval[indexes]
         return values

@@ -1,6 +1,4 @@
-"""
-Implements the BOCOPSolution class, which stores all the information of BOCOP solution file.
-"""
+"""Implements the BOCOPSolution class, which stores all the information of BOCOP solution file."""
 
 import os
 import warnings
@@ -34,15 +32,13 @@ class BOCOPSolution:
     controls: Controls
         The container for all control variables.
     dataframe: pd.DataFrame
-        A dataframe storing the value of all state and control variables, indexed by their discretization time.
-    """
+        A dataframe storing the value of all state and control variables, indexed by their discretization time."""
     def __init__(self, working_directory_filename: str):
         """
         Parameters
         ----------
         working_directory_filename: str
-            Name of the folder which contains the solution files.
-        """
+            Name of the folder which contains the solution files."""
         __slots__ = ("working_directory_filename", "discretization_times", "stage_times", "parameters",
                      "states", "adjoint_states", "control", "dataframe")
 
@@ -76,8 +72,7 @@ class BOCOPSolution:
         Returns
         -------
         array: np.ndarray
-            The array with the values stored in the file. If the file is empty, then it is an empty array.
-        """
+            The array with the values stored in the file. If the file is empty, then it is an empty array."""
         try:
             array = np.genfromtxt(f"{self.working_directory_filename}/{filename}.export")
         except UserWarning:

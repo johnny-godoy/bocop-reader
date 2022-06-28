@@ -1,6 +1,4 @@
-"""
-Implements the PhasePlotter class, which extends variable bunches that require phase plot diagrams.
-"""
+"""Implements the PhasePlotter class, which extends variable bunches that require phase plot diagrams."""
 
 from __future__ import annotations
 
@@ -30,8 +28,7 @@ class _PhasePlotter(_VariableBunch):
         fig: matplotlib.figure.Figure
             The figure of the plot.
         ax: matplotlib.axes._subplots.AxesSubplot
-            The axis of the plot.
-        """
+            The axis of the plot."""
         if fig_ax is None:
             fig, ax = plt.subplots(1, 1)
         else:

@@ -1,6 +1,4 @@
-"""
-Implements the types of bunches which are stored in a BOCOPSolution class.
-"""
+"""Implements the types of bunches which are stored in a BOCOPSolution class."""
 
 from __future__ import annotations
 

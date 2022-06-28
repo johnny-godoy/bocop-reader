@@ -1,6 +1,4 @@
-"""
-Implements the Variable class, which contains states, adjoint states or controls variables.
-"""
+"""Implements the Variable class, which contains states, adjoint states or controls variables."""
 
 from __future__ import annotations
 
@@ -28,8 +26,7 @@ class _Variable:
     step_interpolator: PiecewiseConstantInterpolator
         A piecewise constant interpolator for the variable.
     interpolator: scipy.interpolate.interpolate.interp1d
-        An interpolator for the variable.
-    """
+        An interpolator for the variable."""
     def __init__(self, solution: BOCOPSolution, name: str):
         """
         Parameters
@@ -37,8 +34,7 @@ class _Variable:
         solution: BOCOPSolution
             An instance of the class that stores all the solution information.
         name: str
-            The name of the variable.
-        """
+            The name of the variable."""
         __slots__ = ("name", "values", "discretization_times", "series", "step_interpolator", "interpolator")
 
         self.name = name
@@ -72,8 +68,7 @@ class _Variable:
         Returns
         -------
         times: np.ndarray
-            The times at which self(times) = evaluation_values
-        """
+            The times at which self(times) = evaluation_values"""
         if guess_times is None:
             guess_times = [None for _ in evaluation_values]
         for i, (guess, value) in enumerate(zip(guess_times, evaluation_values)):
@@ -96,8 +91,7 @@ class _Variable:
         Returns
         -------
         ax: matplotlib.axes._subplots.AxesSubplot
-            The axis in which the plot is drawn.
-        """
+            The axis in which the plot is drawn."""
         if ax is None:
             ax = plt.subplots(1, 1)[1]
         ax.plot(self.discretization_times, self.values, **kwargs)

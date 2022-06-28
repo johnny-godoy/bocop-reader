@@ -1,6 +1,4 @@
-"""
-Implements the VariableBunch class, which stores variables of the same type.
-"""
+"""Implements the VariableBunch class, which stores variables of the same type."""
 
 from __future__ import annotations
 
@@ -20,8 +18,7 @@ class _VariableBunch:
     working_directory_filename: str
         The file which stores the exported solution.
     dataframe: pd.DataFrame
-        A dataframe with the values of each variable stored, indexed by time.
-    """
+        A dataframe with the values of each variable stored, indexed by time."""
     def __init__(self, solution: BOCOPSolution, variable_list: list[str]):
         """
         Parameters
@@ -29,8 +26,7 @@ class _VariableBunch:
         solution: BOCOPSolution
             An instance of the class that stores all the solution information.
         variable_list: list[str]
-            A list with each variable named.
-        """
+            A list with each variable named."""
         self.variables = {name: _Variable(solution, name) for name in variable_list}
         self.working_directory_filename = solution.working_directory_filename
         self.dataframe = pd.DataFrame({name: variable.series
@@ -74,8 +70,7 @@ class _VariableBunch:
             The figure corresponding to all axes for the subplots of each variable.
         ax: np.array[matplotlib.axes._subplots.AxesSubplot]|matplotlib.axes._subplots.AxesSubplot
             An array of every axis, each one plotting a variable.
-            If there is only one variable, then it only returns the single axis.
-        """
+            If there is only one variable, then it only returns the single axis."""
         if 0 in {n_cols, n_rows}:
             n_cols = 1
             n_rows = len(self.variables)
