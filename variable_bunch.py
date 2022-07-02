@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 import pandas as pd
+import scipy.ndimage
 
-from utilities import subplots
+from utilities import subplots, PiecewiseConstantInterpolator
 from variable import _Variable
 
 
@@ -33,6 +34,11 @@ class _VariableBunch:
                                        for name, variable in self.variables.items()})
         if not self.variables:
             self._only_variable = list(self.variables.values())[0]
+        processed_dataframe = self.dataframe.apply(lambda column: scipy.ndimage.median_filter(column, size=1))
+        processed_dataframe = (processed_dataframe - processed_dataframe.min())/(processed_dataframe.max() - processed_dataframe.min())
+        for var, (_, processed_series) in zip(self.variables.values(), processed_dataframe.iteritems()):
+            print(processed_series)
+            var.step_interpolator = PiecewiseConstantInterpolator(var.series, processed_series)
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self.working_directory_filename}, {self.variables})"

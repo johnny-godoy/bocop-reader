@@ -7,8 +7,6 @@ import pandas as pd
 import scipy.interpolate
 import scipy.optimize
 
-from utilities import PiecewiseConstantInterpolator
-
 
 class _Variable:
     """Class that stores a state, adjoint state or control variable.
@@ -42,7 +40,6 @@ class _Variable:
         times = solution.stage_times if len(solution.stage_times) == len(self.values) else solution.discretization_times
         self.discretization_times = times
         self.series = pd.Series(self.values, index=self.discretization_times, name=name)
-        self.step_interpolator = PiecewiseConstantInterpolator(self.series)
         self.interpolator = scipy.interpolate.InterpolatedUnivariateSpline(self.discretization_times, self.values)
 
     def __repr__(self):
