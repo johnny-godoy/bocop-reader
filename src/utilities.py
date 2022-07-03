@@ -1,4 +1,4 @@
-"""Implements utility functions and classes."""
+"""Implement utility functions and classes."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ import pandas as pd
 
 
 def subplots(n_rows: int, n_cols: int, **kwargs) -> tuple[Figure, Axes]:
-    """Creates a rectangular plot with n_rows and n_columns of subplots. Like plt.subplots, but each subplot has the current figsize.
+    """Create a rectangular plot with n_rows and n_columns of subplots. Like plt.subplots, but each subplot has the current figsize.
 
     Parameters
     ----------
@@ -23,7 +23,7 @@ def subplots(n_rows: int, n_cols: int, **kwargs) -> tuple[Figure, Axes]:
 
 
 def not_close_to_zero(z: pd.Series) -> pd.Series:
-    """Returns True in the positions where the element of the series is not close to 0, (with absolute tolerance 1e-08)."""
+    """Return True in the positions where the element of the series is not close to 0, (with absolute tolerance 1e-08)."""
     return np.logical_or(np.isnan(z), z > 1e-08)
 
 
@@ -51,7 +51,7 @@ class PiecewiseConstantInterpolator:
         self.name = original_series.name
 
     def __call__(self, times: np.ndarray) -> np.ndarray:
-        """Evaluates the spline at each time.
+        """Evaluate the spline at each time.
 
         Parameters
         ----------

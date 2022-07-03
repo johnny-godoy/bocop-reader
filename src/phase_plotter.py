@@ -1,4 +1,4 @@
-"""Implements the PhasePlotter class, which extends variable bunches that require phase plot diagrams."""
+"""Implement the PhasePlotter class, extending variable bunches that require phase plot diagrams."""
 
 from __future__ import annotations
 
@@ -12,7 +12,7 @@ from variable_bunch import _VariableBunch
 class _PhasePlotter(_VariableBunch):
     """Base class for a variable bunch that implements the phase_space_plot method."""
     def phase_space_plot(self, state_x: str, state_y: str, fig_ax: tuple[Figure, Axes] = None) -> tuple[Figure, Axes]:
-        """Plots the phase space of two variables. Returns the figure and axes of the plot.
+        """Plot the phase space of two variables. Return the figure and axes of the plot.
 
         Parameters
         ----------

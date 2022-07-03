@@ -1,4 +1,4 @@
-"""Implements the VariableBunch class, which stores variables of the same type."""
+"""Implement the VariableBunch class, which stores variables of the same type."""
 
 from __future__ import annotations
 
@@ -14,12 +14,12 @@ class _VariableBunch:
 
     Attributes
     ----------
+    dataframe: pd.DataFrame
+        A dataframe with the values of each variable stored, indexed by time.
     variable_list: dict[str, Variable]
         A dictionary storing each variable, with their names as keys.
     working_directory_filename: str
-        The file which stores the exported solution.
-    dataframe: pd.DataFrame
-        A dataframe with the values of each variable stored, indexed by time."""
+        The file which stores the exported solution."""
     def __init__(self, solution: BOCOPSolution, variable_list: list[str]):
         """
         Parameters
@@ -43,15 +43,15 @@ class _VariableBunch:
         return f"{self.__class__.__name__}({self.working_directory_filename}, {self.variables})"
 
     def __getitem__(self, name):
-        """Gets the variable object given the name."""
+        """Get the variable object given the name."""
         return self.variables[name]
 
     def __getattr__(self, name):
-        """Gets the variable object given the name."""
+        """Get the variable object given the name."""
         return self.variables[name]
 
     def plot(self, n_cols: int = 0, n_rows: int = 0, **kwargs) -> tuple[Figure, Axes | np.array[Axes]]:
-        """Plots all variables in the bunch as subplots of a single plot object.
+        """Plot all variables in the bunch as subplots of a single plot object.
          Returns the figure and axes of the plot.
 
         Parameters

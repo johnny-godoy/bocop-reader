@@ -1,4 +1,4 @@
-"""Implements the Variable class, which contains states, adjoint states or controls variables."""
+"""Implement the Variable class, which contains states, adjoint states or controls variables."""
 
 from __future__ import annotations
 
@@ -13,18 +13,20 @@ class _Variable:
 
     Attributes
     ----------
-    name: str
-        The name of the variable.
-    values: np.ndarray
-        The values that are taken by the variable.
     discretization_times: np.ndarray
         The times at which the variable is evaluated.
+    cubic_interpolator: scipy.interpolate.interpolate.interp1d
+        An interpolator for the variable.
+    name: str
+        The name of the variable.
     series: pd.Series
         The values of the variable, indexed by the discretization times.
     step_interpolator: PiecewiseConstantInterpolator
         A piecewise constant interpolator for the variable.
-    interpolator: scipy.interpolate.interpolate.interp1d
-        An interpolator for the variable."""
+    values: np.ndarray
+        The values that are taken by the variable.
+    adjoint: _Variable, optional
+        If the variable represents a state, then this attribute references the adjoint variable."""
     def __init__(self, solution: BOCOPSolution, name: str):
         """
         Parameters
@@ -40,17 +42,17 @@ class _Variable:
         times = solution.stage_times if len(solution.stage_times) == len(self.values) else solution.discretization_times
         self.discretization_times = times
         self.series = pd.Series(self.values, index=self.discretization_times, name=name)
-        self.interpolator = scipy.interpolate.InterpolatedUnivariateSpline(self.discretization_times, self.values)
+        self.cubic_interpolator = scipy.interpolate.InterpolatedUnivariateSpline(self.discretization_times, self.values)
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self.name})"
 
     def __call__(self, evaluation_times: np.ndarray, **kwargs) -> np.ndarray:
-        """Evaluates the interpolator fitted with the known values of the variable."""
-        return self.interpolator(evaluation_times, **kwargs)
+        """Evaluate the interpolator fitted with the known values of the variable."""
+        return self.cubic_interpolator(evaluation_times, **kwargs)
 
     def inverse(self, evaluation_values: np.ndarray, guess_times: list[float | NoneType] = None) -> np.ndarray:
-        """Returns times such that self(times) is close to evaluation_values, and times is close to guess_times. This inverts
+        """Return times such that self(times) is close to evaluation_values, and times is close to guess_times. This inverts
         the interpolator, even if it is not an injective function.
 
         Parameters
@@ -76,7 +78,7 @@ class _Variable:
         return times
 
     def plot(self, ax: AxesSubplot = None, **kwargs) -> AxesSubplot:
-        """Plots the variable over time, returning the resulting axis.
+        """Plot the variable over time, and return the resulting axis.
 
         Parameters
         ----------

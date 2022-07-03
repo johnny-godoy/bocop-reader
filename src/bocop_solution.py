@@ -1,4 +1,4 @@
-"""Implements the BOCOPSolution class, which stores all the information of BOCOP solution file."""
+"""Implement the BOCOPSolution class, which stores all the information of BOCOP solution file."""
 
 import os
 import warnings
@@ -17,22 +17,20 @@ class BOCOPSolution:
 
     Attributes
     ----------
-    working_directory_filename: str
-        Name of the folder which contains the solution files.
-    discretization_times: np.ndarray
-        The times at which the variables are evaluated.
-    stage_times: np.ndarray
-        The stage times for the solution.
-    parameters: np.ndarray
-        The parameters of the solver.
-    states: States
-        The container for all state variables.
     adjoint_states: AdjointStates
         The container for all adjoint state variables.
     controls: Controls
         The container for all control variables.
+    discretization_times: 1-D np.ndarray of length N
+        The times at which the variables are evaluated.
     dataframe: pd.DataFrame
-        A dataframe storing the value of all state and control variables, indexed by their discretization time."""
+        A dataframe storing the value of all state and control variables, indexed by their discretization time.
+    parameters: np.ndarray
+    stage_times: 1-D np.ndarray of length N - 1
+    states: States
+        The container for all state variables.
+    working_directory_filename: str
+        Name of the folder which contains the solution files."""
     def __init__(self, working_directory_filename: str):
         """
         Parameters
@@ -62,7 +60,7 @@ class BOCOPSolution:
         return f"{self.__class__.__name__}({self.working_directory_filename})"
 
     def file_to_array(self, filename: str) -> np.ndarray:
-        """Reads a file in the directory, and returns it's contents as a numpy array.
+        """Read a file in the directory, and return it's contents as a numpy array.
 
         Parameters
         ----------
@@ -81,5 +79,5 @@ class BOCOPSolution:
 
 
 if __name__ == "__main__":
-    bs = BOCOPSolution("data/bocop_sample")
+    bs = BOCOPSolution("../data/bocop_sample")
     print(bs.states.biomass.step_interpolator)
