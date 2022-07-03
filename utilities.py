@@ -48,6 +48,7 @@ class PiecewiseConstantInterpolator:
         self._right_times = np.append(left_times[1:], original_series.index[-1])
         self.intervals = np.column_stack((left_times, self._right_times))
         self.value_per_interval = np.array([original_series[a:b].median() for a, b in self.intervals])
+        self.name = original_series.name
 
     def __call__(self, times: np.ndarray) -> np.ndarray:
         """Evaluates the spline at each time.
@@ -67,8 +68,8 @@ class PiecewiseConstantInterpolator:
 
     def __repr__(self):
         """String with the code for the LaTeX representation of the spline."""
-        lines = [r"y(x) \approx \begin{cases}"] + list(
-            fr"{val} &\text{{ if }} x\in [{a}, {b}) \\" for (a, b), val in zip(self.intervals, self.value_per_interval)) + [
+        lines = [fr"{self.name}(t) \approx \begin{{cases}}"] + list(
+            fr"{val} &\text{{ if }} t\in [{a}, {b}) \\" for (a, b), val in zip(self.intervals, self.value_per_interval)) + [
                     r"\end{cases}"]
         return "\n".join(lines)
 

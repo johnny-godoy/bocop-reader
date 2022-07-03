@@ -37,7 +37,6 @@ class _VariableBunch:
         processed_dataframe = self.dataframe.apply(lambda column: scipy.ndimage.median_filter(column, size=1))
         processed_dataframe = (processed_dataframe - processed_dataframe.min())/(processed_dataframe.max() - processed_dataframe.min())
         for var, (_, processed_series) in zip(self.variables.values(), processed_dataframe.iteritems()):
-            print(processed_series)
             var.step_interpolator = PiecewiseConstantInterpolator(var.series, processed_series)
 
     def __repr__(self):
