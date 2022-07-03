@@ -68,9 +68,9 @@ class PiecewiseConstantInterpolator:
 
     def __repr__(self):
         """String with the code for the LaTeX representation of the spline."""
-        lines = [fr"{self.name}(t) \approx \begin{{cases}}"] + list(
-            fr"{val} &\text{{ if }} t\in [{a}, {b}) \\" for (a, b), val in zip(self.intervals, self.value_per_interval)) + [
-                    r"\end{cases}"]
+        lines = [fr"{self.name}(t) \approx \begin{{cases}}"] + \
+                [fr"{val} &\text{{ if }} t\in [{a}, {b}) \\" for (a, b), val in zip(self.intervals, self.value_per_interval)] + \
+                [r"\end{cases}"]
         return "\n".join(lines)
 
     def _repr_html_(self):

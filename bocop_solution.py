@@ -81,6 +81,5 @@ class BOCOPSolution:
 
 
 if __name__ == "__main__":
-    import matplotlib.pyplot as plt
     bs = BOCOPSolution("data/bocop_sample")
     print(bs.states.biomass.step_interpolator)
