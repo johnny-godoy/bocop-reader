@@ -27,6 +27,8 @@ class _Variable:
         The values that are taken by the variable.
     adjoint: _Variable, optional
         If the variable represents a state, then this attribute references the adjoint variable."""
+    __slots__ = "discretization_times", "cubic_interpolator", "name", "series", "step_interpolator", "values", "adjoint"
+
     def __init__(self, solution: BOCOPSolution, name: str):
         """
         Parameters
@@ -35,8 +37,6 @@ class _Variable:
             An instance of the class that stores all the solution information.
         name: str
             The name of the variable."""
-        __slots__ = ("name", "values", "discretization_times", "series", "step_interpolator", "interpolator")
-
         self.name = name
         self.values = solution.file_to_array(name)
         times = solution.stage_times if len(solution.stage_times) == len(self.values) else solution.discretization_times

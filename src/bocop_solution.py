@@ -6,7 +6,7 @@ import warnings
 import numpy as np
 import pandas as pd
 
-from bunches import _AdjointStates, _Controls, _States
+from _bunches import _AdjointStates, _Controls, _States
 
 warnings.filterwarnings("error", category=UserWarning)
 CONSTANT_NAMES: tuple[str, str, str] = ("discretization_times", "stage_times", "parameters")
@@ -21,25 +21,25 @@ class BOCOPSolution:
         The container for all adjoint state variables.
     controls: Controls
         The container for all control variables.
-    discretization_times: 1-D np.ndarray of length N
-        The times at which the variables are evaluated.
     dataframe: pd.DataFrame
         A dataframe storing the value of all state and control variables, indexed by their discretization time.
+    discretization_times: 1-D np.ndarray of length N
+        The times at which the variables are evaluated.
     parameters: np.ndarray
     stage_times: 1-D np.ndarray of length N - 1
     states: States
         The container for all state variables.
     working_directory_filename: str
         Name of the folder which contains the solution files."""
+    __slots__ = "adjoint_states", "controls", "dataframe", "discretization_times", "parameters", "stage_times", "states",\
+                "working_directory_filename"
+
     def __init__(self, working_directory_filename: str):
         """
         Parameters
         ----------
         working_directory_filename: str
             Name of the folder which contains the solution files."""
-        __slots__ = ("working_directory_filename", "discretization_times", "stage_times", "parameters",
-                     "states", "adjoint_states", "control", "dataframe")
-
         self.working_directory_filename = working_directory_filename
         for name in CONSTANT_NAMES:
             setattr(self, name, self.file_to_array(name))
@@ -80,4 +80,4 @@ class BOCOPSolution:
 
 if __name__ == "__main__":
     bs = BOCOPSolution("../data/bocop_sample")
-    print(bs.states.biomass.step_interpolator)
+    print(bs.states.biomass.adjoint)

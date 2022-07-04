@@ -36,6 +36,8 @@ class PiecewiseConstantInterpolator:
         A 2D array of intervals (length 2 arrays) in which the function is constant.
     value_per_interval: np.ndarray of size N
         A 1D array of the constant value per each interval."""
+    __slots__ = "_right_times", "intervals", "value_per_interval", "name"
+
     def __init__(self, original_series: pd.Series, processed_series: pd.Series):
         """
         Parameters

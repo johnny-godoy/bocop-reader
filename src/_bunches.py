@@ -2,17 +2,8 @@
 
 from __future__ import annotations
 
-from variable_bunch import _VariableBunch
-from phase_plotter import _PhasePlotter
-
-
-class _States(_PhasePlotter):
-    """Container for states."""
-    def __init__(self, solution: BOCOPSolution, variable_list: list[str]):
-        super().__init__(solution, variable_list)
-        adjoints = solution.adjoint_states
-        for name, variable in self.variables.items():
-            variable.adjoint = adjoints[f"{name}_adjoint_state"]
+from _variable_bunch import _VariableBunch
+from _phase_plotter import _PhasePlotter
 
 
 class _AdjointStates(_PhasePlotter):
@@ -24,3 +15,12 @@ class _AdjointStates(_PhasePlotter):
 class _Controls(_VariableBunch):
     """Container for control variables."""
     pass
+
+
+class _States(_PhasePlotter):
+    """Container for states."""
+    def __init__(self, solution: BOCOPSolution, variable_list: list[str]):
+        super().__init__(solution, variable_list)
+        adjoints = solution.adjoint_states
+        for name, variable in self.variables.items():
+            variable.adjoint = adjoints[f"{name}_adjoint_state"]

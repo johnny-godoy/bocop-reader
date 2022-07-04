@@ -5,8 +5,8 @@ from __future__ import annotations
 import pandas as pd
 import scipy.ndimage
 
-from utilities import subplots, PiecewiseConstantInterpolator
-from variable import _Variable
+from _utilities import subplots, PiecewiseConstantInterpolator
+from _variable import _Variable
 
 
 class _VariableBunch:
@@ -16,7 +16,7 @@ class _VariableBunch:
     ----------
     dataframe: pd.DataFrame
         A dataframe with the values of each variable stored, indexed by time.
-    variable_list: dict[str, Variable]
+    variables: dict[str, Variable]
         A dictionary storing each variable, with their names as keys.
     working_directory_filename: str
         The file which stores the exported solution."""
