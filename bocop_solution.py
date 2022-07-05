@@ -6,7 +6,7 @@ import warnings
 import numpy as np
 import pandas as pd
 
-from models._bunches import _AdjointStates, _Controls, _States
+from internals._bunches import _AdjointStates, _Controls, _States
 
 warnings.filterwarnings("error", category=UserWarning)
 _CONSTANT_NAMES = ("discretization_times", "stage_times", "parameters")

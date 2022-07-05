@@ -9,5 +9,6 @@ setuptools.setup(name="bocop_solution",
                  url="https://github.com/johnny-godoy/bocop-reader",
                  install_requires=["numpy", "pandas"],
                  extra_require=["matplotlib", "scipy"],
-                 py_modules=["bocop_solution"]
+                 py_modules=["bocop_solution"],
+                 packages=["internals"]
                  )
