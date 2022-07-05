@@ -5,8 +5,8 @@ from __future__ import annotations
 import pandas as pd
 import scipy.ndimage
 
-from _utilities import subplots, PiecewiseConstantInterpolator
-from _variable import _Variable
+from ._utilities import subplots, PiecewiseConstantInterpolator
+from ._variable import _Variable
 
 
 class _VariableBunch:

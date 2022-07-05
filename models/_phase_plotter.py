@@ -6,7 +6,7 @@ import matplotlib.collections
 import matplotlib.pyplot as plt
 import numpy as np
 
-from _variable_bunch import _VariableBunch
+from ._variable_bunch import _VariableBunch
 
 
 class _PhasePlotter(_VariableBunch):

@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from _variable_bunch import _VariableBunch
-from _phase_plotter import _PhasePlotter
+from ._variable_bunch import _VariableBunch
+from ._phase_plotter import _PhasePlotter
 
 
 class _AdjointStates(_PhasePlotter):
