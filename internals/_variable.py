@@ -39,7 +39,7 @@ class _Variable:
             The name of the variable."""
         self.name = name
         # Setting arrays and series
-        self.values = solution.file_to_array(name)
+        self.values = solution._file_to_array(name)
         times = solution.stage_times if len(solution.stage_times) == len(self.values) else solution.discretization_times
         self.discretization_times = times
         self.series = pd.Series(self.values, index=self.discretization_times, name=name)

@@ -42,7 +42,7 @@ class BOCOPSolution:
             Name of the folder which contains the solution files."""
         self.working_directory_filename = working_directory_filename
         for name in _CONSTANT_NAMES:
-            setattr(self, name, self.file_to_array(name))
+            setattr(self, name, self._file_to_array(name))
         # Obtaining all state and control files
         files = []
         for file in os.listdir(working_directory_filename):
@@ -63,7 +63,7 @@ class BOCOPSolution:
     def __repr__(self):
         return f"{self.__class__.__name__}({self.working_directory_filename})"
 
-    def file_to_array(self, filename: str) -> np.ndarray:
+    def _file_to_array(self, filename: str) -> np.ndarray:
         """Read a file in the directory, and return it's contents as a numpy array.
 
         Parameters
@@ -84,4 +84,4 @@ class BOCOPSolution:
 
 if __name__ == "__main__":
     bs = BOCOPSolution("data/bocop_sample")
-    print(help(bs.states))
+    print(bs.states.biomass.step_interpolator)

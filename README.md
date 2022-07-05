@@ -10,18 +10,27 @@ For example, it implements:
 * Variable interpolation with cubic splines, allowing for easy differentiation and integration.
 * Variable interpolation with piecewise constants, numerically detecting bang-bang controls and returning their [LaTeX](https://www.latex-project.org/) representation.
 
-# Installation
+# Installation and use
 
-For installing locally or in [Google Colab](https://colab.research.google.com/), just use the command:
+For local  or [Google Colab](https://colab.research.google.com/) installation, just use the command:
 
 ``
 pip install git+https://github.com/johnny-godoy/bocop-reader.git
 ``
 
+The main object that stores all solution files is the ``BOCOPSolution`` class, which can be imported like such:
+
+``
+from bocop_solution import BOCOPSolution
+``
+
+A more detailed guide on how to use this class will be left as notebooks in this repository, but everything is documented, so the ``help`` function may be very useful.
+
 # TO DO
 
 * Write thorough testing with all the BOCOP example problems.
-* Create example [Jupyter](https://jupyter.org/) Notebooks, acting as a User Guide.
+* Create example [Jupyter](https://jupyter.org/) Notebooks
+* Profile and optimize code if necessary
 
 # Contact
 For bug reports and user help, I recommend you to use the GitHub Issues feature, but you may also contact the author at johnny.godoy@ing.uchile.cl.
