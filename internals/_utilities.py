@@ -46,11 +46,13 @@ class PiecewiseConstantInterpolator:
             The series to fit.
         processed_series: pd.Series
             A denoised and normalized version of the original series."""
+        self.name = original_series.name
+        # Finding the cutting times
         left_times = processed_series[not_close_to_zero(processed_series.diff().abs())].index
         self._right_times = np.append(left_times[1:], original_series.index[-1])
         self.intervals = np.column_stack((left_times, self._right_times))
+        # Finding the constant value for each time
         self.value_per_interval = np.array([original_series[a:b].median() for a, b in self.intervals])
-        self.name = original_series.name
 
     def __call__(self, times: np.ndarray) -> np.ndarray:
         """Evaluate the spline at each time.

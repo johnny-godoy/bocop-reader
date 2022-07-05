@@ -38,10 +38,12 @@ class _Variable:
         name: str
             The name of the variable."""
         self.name = name
+        # Setting arrays and series
         self.values = solution.file_to_array(name)
         times = solution.stage_times if len(solution.stage_times) == len(self.values) else solution.discretization_times
         self.discretization_times = times
         self.series = pd.Series(self.values, index=self.discretization_times, name=name)
+        # Creating the interpolator object
         self.cubic_interpolator = scipy.interpolate.InterpolatedUnivariateSpline(self.discretization_times, self.values)
 
     def __repr__(self):
@@ -70,9 +72,11 @@ class _Variable:
             The times at which self(times) = evaluation_values"""
         if guess_times is None:
             guess_times = [None for _ in evaluation_values]
+        # Filling up the times that where not given with the closest value in the series
         for i, (guess, value) in enumerate(zip(guess_times, evaluation_values)):
             if guess is None:
                 guess_times[i] = (self.series - value).abs().argmin()
+        # Inverting the function with root-finding
         times = scipy.optimize.root(lambda x: self(x) - evaluation_values,
                                     np.array(guess_times)).x
         return times

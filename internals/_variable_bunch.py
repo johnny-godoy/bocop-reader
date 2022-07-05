@@ -32,21 +32,21 @@ class _VariableBunch:
         self.working_directory_filename = solution.working_directory_filename
         self.dataframe = pd.DataFrame({name: variable.series
                                        for name, variable in self.variables.items()})
-        if not self.variables:
-            self._only_variable = list(self.variables.values())[0]
+        # Setting an attribute for each variable with a valid name:
+        for name, variable in self.variables.items():
+            if not hasattr(self, name):
+                setattr(self, name, variable)
+        # Processing all series for step interpolation in their dataframe
         processed_dataframe = self.dataframe.apply(lambda column: scipy.ndimage.median_filter(column, size=1))
         processed_dataframe = (processed_dataframe - processed_dataframe.min())/(processed_dataframe.max() - processed_dataframe.min())
-        for var, (_, processed_series) in zip(self.variables.values(), processed_dataframe.iteritems()):
-            var.step_interpolator = PiecewiseConstantInterpolator(var.series, processed_series)
+        # Creating the step interpolator for each variable
+        for variable, (_, processed_series) in zip(self.variables.values(), processed_dataframe.iteritems()):
+            variable.step_interpolator = PiecewiseConstantInterpolator(variable.series, processed_series)
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self.working_directory_filename}, {self.variables})"
 
     def __getitem__(self, name):
-        """Get the variable object given the name."""
-        return self.variables[name]
-
-    def __getattr__(self, name):
         """Get the variable object given the name."""
         return self.variables[name]
 
@@ -88,6 +88,6 @@ class _VariableBunch:
             for variable, ax in zip(self.variables.values(), axes.flatten()):
                 variable.plot(ax, **kwargs)
         except AttributeError:
-            self._only_variable.plot(axes, **kwargs)
+            list(self.variables.values())[0].plot(axes, **kwargs)
         fig.suptitle(self.__class__.__name__)
         return fig, axes

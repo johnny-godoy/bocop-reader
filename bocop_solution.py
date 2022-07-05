@@ -43,17 +43,21 @@ class BOCOPSolution:
         self.working_directory_filename = working_directory_filename
         for name in _CONSTANT_NAMES:
             setattr(self, name, self.file_to_array(name))
+        # Obtaining all state and control files
         files = []
         for file in os.listdir(working_directory_filename):
             filename = os.fsdecode(file)
             prefix, suffix = filename.split(".")
             if suffix == "export" and prefix not in _CONSTANT_NAMES:
                 files.append(prefix)
+        # Classifying files for each variable type
         states = [file for file in files if f"{file}_adjoint_state" in files]
         controls = [file for file in files if f"stage_{file}" in files]
+        # Creating bunch objects for each variable type
         self.adjoint_states = _AdjointStates(self, states)
         self.states = _States(self, states)
         self.controls = _Controls(self, controls)
+
         self.dataframe = pd.concat([self.states.dataframe, self.controls.dataframe], axis=1)
 
     def __repr__(self):
@@ -80,4 +84,4 @@ class BOCOPSolution:
 
 if __name__ == "__main__":
     bs = BOCOPSolution("data/bocop_sample")
-    print(bs.states.biomass.adjoint)
+    print(help(bs.states))
