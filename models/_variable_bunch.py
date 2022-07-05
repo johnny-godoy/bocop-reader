@@ -81,7 +81,7 @@ class _VariableBunch:
             n_rows = len(self.variables)
         size = n_cols * n_rows
         if size != len(self.variables):
-            raise ValueError(f"The given shape ({n_cols}, {n_rows}) is of {size=}, " +
+            raise ValueError(f"The given shape ({n_cols}, {n_rows}) is of size={size}, " +
                              f"should be {len(self.variables)}")
         fig, axes = subplots(n_rows, n_cols)
         try:
