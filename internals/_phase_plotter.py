@@ -37,11 +37,12 @@ class _PhasePlotter(_VariableBunch):
         # Creating the phase plot, colored by time
         values_state_x = self.variables[state_x].values
         values_state_y = self.variables[state_y].values
+        discretization_times = self.variables[state_x].discretization_times
         points = np.column_stack((values_state_x, values_state_y)).reshape((-1, 1, 2))
         lc = matplotlib.collections.LineCollection(np.concatenate([points[:-1], points[1:]], axis=1),
-                                                   norm=plt.Normalize(self.discretization_times[0],
-                                                                      self.discretization_times[-1]))
-        lc.set_array(self.discretization_times)
+                                                   norm=plt.Normalize(discretization_times[0],
+                                                                      discretization_times[-1]))
+        lc.set_array(discretization_times)
         # Plot configurations
         fig.colorbar(ax.add_collection(lc), ax=ax, label="time")
         ax.set_xlabel(state_x)
