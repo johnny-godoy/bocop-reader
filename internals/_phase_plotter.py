@@ -35,8 +35,8 @@ class _PhasePlotter(_VariableBunch):
         else:
             fig, ax = fig_ax
         # Creating the phase plot, colored by time
-        values_state_x = getattr(self, state_x).values
-        values_state_y = getattr(self, state_y).values
+        values_state_x = self.variables[state_x].values
+        values_state_y = self.variables[state_y].values
         points = np.column_stack((values_state_x, values_state_y)).reshape((-1, 1, 2))
         lc = matplotlib.collections.LineCollection(np.concatenate([points[:-1], points[1:]], axis=1),
                                                    norm=plt.Normalize(self.discretization_times[0],
