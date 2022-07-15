@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+pd.options.mode.use_inf_as_na = True
+
 
 def subplots(n_rows: int, n_cols: int, **kwargs) -> tuple[Figure, Axes]:
     """Create a rectangular plot with n_rows and n_columns of subplots. Like plt.subplots, but each subplot has the current figsize.
@@ -22,9 +24,9 @@ def subplots(n_rows: int, n_cols: int, **kwargs) -> tuple[Figure, Axes]:
                         figsize=np.array((n_rows, n_cols)) * plt.rcParams["figure.figsize"])
 
 
-def not_close_to_zero(z: pd.Series) -> pd.Series:
+def not_close_to_zero(series: pd.Series) -> pd.Series:
     """Return True in the positions where the element of the series is not close to 0, (with absolute tolerance 1e-08)."""
-    return np.logical_or(np.isnan(z), z > 1e-08)
+    return series.isna() | (series > 1e-08)
 
 
 class PiecewiseConstantInterpolator:
@@ -34,6 +36,8 @@ class PiecewiseConstantInterpolator:
     ----------
     intervals: np.ndarray of size 2xN
         A 2D array of intervals (length 2 arrays) in which the function is constant.
+    name: str
+        Name of the series.
     value_per_interval: np.ndarray of size N
         A 1D array of the constant value per each interval."""
     __slots__ = "_right_times", "intervals", "name", "value_per_interval"
