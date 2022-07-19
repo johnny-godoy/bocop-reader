@@ -1,6 +1,6 @@
 # BOCOP Reader
 
-This project implements the ``BOCOPSolution`` [Python](https://www.python.org/) class, which reads a [BOCOP](https://www.bocop.org/) solution directory for ease of use for scientists and engineers.
+This project implements the ``BOCOPSolution`` [Python](https://www.python.org/) class, which reads a [BOCOP](https://www.bocop.org/) solution directory for ease of use in scientific and engineering applications.
 
 For example, it implements:
 
