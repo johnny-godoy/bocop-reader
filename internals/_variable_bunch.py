@@ -101,5 +101,5 @@ class _VariableBunch:
                 variable.plot(ax, **kwargs)
         except AttributeError:
             list(self.variables.values())[0].plot(axes, **kwargs)
-        fig.suptitle(self.__class__.__name__)
+        fig.suptitle(self.__class__.__name__[1:])
         return fig, axes

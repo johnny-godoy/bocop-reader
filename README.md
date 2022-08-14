@@ -24,13 +24,5 @@ The main object that stores all solution files is the ``BOCOPSolution`` class, w
 from bocop_solution import BOCOPSolution
 ``
 
-A more detailed guide on how to use this class will be left as notebooks in this repository, but everything is documented, so the ``help`` function may be very useful.
-
-# TO DO
-
-* Write thorough testing with all the BOCOP example problems.
-* Create example [Jupyter](https://jupyter.org/) Notebooks
-* Profile and optimize code if necessary
-
 # Contact
 For bug reports and user help, I recommend you to use the GitHub Issues feature, but you may also contact the author at johnny.godoy@ing.uchile.cl.
