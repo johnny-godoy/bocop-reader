@@ -50,6 +50,18 @@ class _VariableBunch:
         """Get the variable object given the name."""
         return self.variables[name]
 
+    def __iter__(self):
+        """Iterate over the variables in the bunch."""
+        return iter(self.variables.values())
+
+    def __len__(self):
+        """Return the number of variables in the bunch."""
+        return len(self.variables)
+
+    def size(self):
+        """Return the number of elements in the bunch."""
+        return self.dataframe.size
+
     def plot(self, n_cols: int = 0, n_rows: int = 0, **kwargs) -> tuple[Figure, Axes | np.array[Axes]]:
         """Plot all variables in the bunch as subplots of a single plot object.
          Returns the figure and axes of the plot.

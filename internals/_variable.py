@@ -44,7 +44,7 @@ class _Variable:
         self.discretization_times = times
         self.series = pd.Series(self.values, index=self.discretization_times, name=name)
         # Creating the interpolator object
-        self.cubic_interpolator = scipy.interpolate.InterpolatedUnivariateSpline(self.discretization_times, self.values)
+        self.cubic_interpolator = scipy.interpolate.UnivariateSpline(self.discretization_times, self.values)
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self.name})"
