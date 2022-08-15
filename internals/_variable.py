@@ -76,7 +76,7 @@ class _Variable:
         # Filling up the times that where not given with the closest value in the series
         for i, (guess, value) in enumerate(zip(guess_times, evaluation_values)):
             if guess is None:
-                guess_times[i] = (self.series - value).abs().argmin()
+                guess_times[i] = (self.series - value).abs().idxmin()
         # Inverting the function with root-finding
         times = scipy.optimize.root(lambda x: self(x) - evaluation_values,
                                     np.array(guess_times)).x
