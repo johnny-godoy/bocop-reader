@@ -10,7 +10,7 @@ from internals._bunches import _AdjointStates, _Controls, _States
 
 warnings.filterwarnings("error", category=UserWarning)
 _CONSTANT_NAMES = ("discretization_times", "stage_times", "parameters")
-__version__ = "0.0.1"
+__version__ = "1.0.0"
 
 
 class BOCOPSolution:

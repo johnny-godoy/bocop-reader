@@ -12,17 +12,17 @@ For example, it implements:
 
 # Installation and use
 
-For local  or [Google Colab](https://colab.research.google.com/) installation, just use the command:
+For local or [Google Colab](https://colab.research.google.com/) installation, just use the command:
 
-``
+```
 pip install git+https://github.com/johnny-godoy/bocop-reader.git
-``
+```
 
 The main object that stores all solution files is the ``BOCOPSolution`` class, which can be imported like such:
 
-``
+```
 from bocop_solution import BOCOPSolution
-``
+```
 
 We include a small guide in the `notebooks/Introduction.ipynb` notebook.
 It is also available as HTML [here.](https://johnny-godoy.github.io/bocop-reader/)
