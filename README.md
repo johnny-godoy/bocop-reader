@@ -25,7 +25,7 @@ from bocop_solution import BOCOPSolution
 ``
 
 We include a small guide in the `notebooks/Introduction.ipynb` notebook.
-It is also available as HTML here [here.](https://johnny-godoy.github.io/bocop-reader/)
+It is also available as HTML [here.](https://johnny-godoy.github.io/bocop-reader/)
 
 # Contact
 For bug reports and user help, I recommend you to use the GitHub Issues feature, but you may also contact the author at johnny.godoy@ing.uchile.cl.
