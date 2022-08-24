@@ -21,7 +21,7 @@ class _States(_PhasePlotter):
     """Container for states."""
     def __init__(self, solution: BOCOPSolution, variable_list: list[str]):
         super().__init__(solution, variable_list)
-        adjoints = solution.adjoint_states
-        # Relating every variable to it's adjoint
-        for name, variable in self.variables.items():
-            variable.adjoint = adjoints[f"{name}_adjoint_state"]
+        # adjoints = solution.adjoint_states
+        # Relating every variable to its adjoint
+        # for name, variable in self.variables.items():
+        #     variable.adjoint = adjoints[f"{name}_adjoint_state"]

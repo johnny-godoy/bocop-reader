@@ -55,7 +55,7 @@ class BOCOPSolution:
         states = [file for file in files if f"{file}_adjoint_state" in files]
         controls = [file for file in files if f"stage_{file}" in files]
         # Creating bunch objects for each variable type
-        self.adjoint_states = _AdjointStates(self, states)
+        # self.adjoint_states = _AdjointStates(self, states)
         self.states = _States(self, states)
         self.controls = _Controls(self, controls)
 
