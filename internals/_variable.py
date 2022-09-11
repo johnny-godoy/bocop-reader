@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import abc
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -9,8 +11,8 @@ import scipy.interpolate
 import scipy.optimize
 
 
-class _Variable:
-    """Class that stores a state, adjoint state or control variable.
+class _AbstractVariable(abc.ABC):
+    """Abstract class that stores a state, adjoint state or control variable.
 
     Attributes
     ----------
@@ -28,7 +30,8 @@ class _Variable:
         The values that are taken by the variable.
     adjoint: _Variable, optional
         If the variable represents a state, then this attribute references the adjoint variable."""
-    __slots__ = "discretization_times", "cubic_interpolator", "name", "series", "step_interpolator", "values", "adjoint"
+    __metaclass__ = abc.ABCMeta
+    __slots__ = "cubic_interpolator", "name", "series", "step_interpolator", "values", "adjoint"
 
     def __init__(self, solution: BOCOPSolution, name: str):
         """
@@ -39,10 +42,9 @@ class _Variable:
         name: str
             The name of the variable."""
         self.name = name
+        self.solution = solution
         # Setting arrays and series
         self.values = solution._file_to_array(name)
-        times = solution.stage_times if len(solution.stage_times) == len(self.values) else solution.discretization_times
-        self.discretization_times = times
         self.series = pd.Series(self.values, index=self.discretization_times, name=name)
         # Creating the interpolator object
         self.cubic_interpolator = scipy.interpolate.InterpolatedUnivariateSpline(self.discretization_times, self.values)
@@ -102,3 +104,28 @@ class _Variable:
         ax.set_xlabel("time")
         ax.set_ylabel(self.name)
         return ax
+
+    @property
+    @abc.abstractmethod
+    def discretization_times(self):
+        """Return the times at which the variable is evaluated."""
+        raise NotImplementedError
+
+
+class _State(_AbstractVariable):
+    @property
+    def discretization_times(self):
+        return self.solution.discretization_times
+
+
+class _AdjointState(_AbstractVariable):
+    @property
+    def discretization_times(self):
+        times = self.solution.discretization_times
+        return (times[1] + times[:-1]) / 2
+
+
+class _Control(_AbstractVariable):
+    @property
+    def discretization_times(self):
+        return self.solution.discretization_times

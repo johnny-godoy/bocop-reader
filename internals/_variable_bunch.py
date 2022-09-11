@@ -6,7 +6,6 @@ import pandas as pd
 import scipy.ndimage
 
 from ._utilities import subplots, PiecewiseConstantInterpolator
-from ._variable import _Variable
 
 
 class _VariableBunch:
@@ -20,7 +19,7 @@ class _VariableBunch:
         A dictionary storing each variable, with their names as keys.
     working_directory_filename: str
         The file which stores the exported solution."""
-    def __init__(self, solution: BOCOPSolution, variable_list: list[str]):
+    def __init__(self, solution: BOCOPSolution, variable_list: list[str], variable_type):
         """
         Parameters
         ----------
@@ -28,7 +27,7 @@ class _VariableBunch:
             An instance of the class that stores all the solution information.
         variable_list: list[str]
             A list with each variable named."""
-        self.variables = {name: _Variable(solution, name) for name in variable_list}
+        self.variables = {name: variable_type(solution, name) for name in variable_list}
         self.working_directory_filename = solution.working_directory_filename
         self.dataframe = pd.DataFrame({name: variable.series
                                        for name, variable in self.variables.items()})
@@ -103,3 +102,5 @@ class _VariableBunch:
             list(self.variables.values())[0].plot(axes, **kwargs)
         fig.suptitle(self.__class__.__name__[1:])
         return fig, axes
+
+
