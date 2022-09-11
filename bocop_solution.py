@@ -58,11 +58,10 @@ class BOCOPSolution:
         self.adjoint_states = _AdjointStates(self, states)
         self.states = _States(self, states)
         self.controls = _Controls(self, controls)
-
         self.dataframe = pd.concat([self.states.dataframe, self.controls.dataframe], axis=1)
 
     def __repr__(self):
-        return f"{self.__class__.__name__}({self.working_directory_filename})"
+        return f"{self.__class__.__name__}('{self.working_directory_filename}')"
 
     def _file_to_array(self, filename: str) -> np.ndarray:
         """Read a file in the directory, and return it's contents as a numpy array.
