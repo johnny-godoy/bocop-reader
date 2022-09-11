@@ -50,7 +50,7 @@ class _AbstractVariable(abc.ABC):
         self.cubic_interpolator = scipy.interpolate.InterpolatedUnivariateSpline(self.discretization_times, self.values)
 
     def __repr__(self):
-        return f"{self.__class__.__name__}({self.name})"
+        return f"{self.__class__.__name__}('{self.name}')"
 
     def __call__(self, evaluation_times: np.ndarray, **kwargs) -> np.ndarray:
         """Evaluate the interpolator fitted with the known values of the variable."""

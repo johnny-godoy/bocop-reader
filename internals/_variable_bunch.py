@@ -43,7 +43,7 @@ class _VariableBunch:
             variable.step_interpolator = PiecewiseConstantInterpolator(variable.series, processed_series)
 
     def __repr__(self):
-        return f"{self.__class__.__name__}({self.working_directory_filename}, variables={list(self.variables.values())})"
+        return f"{self.__class__.__name__}('{self.working_directory_filename}', variables={list(self.variables.values())})"
 
     def __getitem__(self, name):
         """Get the variable object given the name."""
